@@ -1,5 +1,6 @@
 package com.mattmayers.arcoiris;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import orbotix.robot.app.StartupActivity;
@@ -13,6 +14,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +31,14 @@ public class MainActivity extends Activity {
     private static int CONNECT_ROBOT = 0;
     private static final Random random = new Random();
     
+    private static final int[] COLORS = {
+        Color.RED,
+        Color.BLUE,
+        Color.GREEN
+    };
+
+    private SparseArray<Robot> robotsByColor = new SparseArray<Robot>(COLORS.length);
+
     private final DeviceMessenger.AsyncDataListener mDataListener = new DeviceMessenger.AsyncDataListener() {
         @Override
         public void onDataReceived(DeviceAsyncData data) {
@@ -73,6 +83,12 @@ public class MainActivity extends Activity {
         if(requestCode == CONNECT_ROBOT && resultCode == RESULT_OK){
             String robotId = intent.getStringExtra(StartupActivity.EXTRA_ROBOT_ID);
             Robot robot = RobotProvider.getDefaultProvider().findRobot(robotId);
+
+            for (int color : COLORS) {
+                if (!(robotsByColor.get(color) instanceof Robot)) {
+                    robotsByColor.put(color, robot);
+                }
+            }
         }
     }
     
