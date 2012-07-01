@@ -25,7 +25,7 @@ public class SoundManager {
 			{R.raw.g, R.raw.g2},
 			{R.raw.fs, R.raw.fs2}
 	};
-	private int[] mGreenList = {
+	private int[][] mGreenList = {
 			{R.raw.b, R.raw.b2},
 			{R.raw.c, R.raw.c2}
 	};
@@ -69,53 +69,53 @@ public class SoundManager {
 	public void playSound(int color) {
 		if (color == Color.RED){
 		     int streamVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-		     if (SoundManager.Vez == 0) {
+		     if (Vez == 0) {
 		    	 mSoundPool.play(random(mRedList[0]), streamVolume, streamVolume, 1, 0, 1f);
 		    	 }
-		     if (SoundManager.Vez == 1) {
+		     if (Vez == 1) {
 		    	 mSoundPool.play(random(mRedList[1]), streamVolume, streamVolume, 1, 0, 1f);
 		    	 }
-		     if (SoundManager.Vez == 2) {
+		     if (Vez == 2) {
 		    	 mSoundPool.play(random(mRedList[2]), streamVolume, streamVolume, 1, 0, 1f);
 		    	 }
-		     if (SoundManager.Vez == 3) {
+		     if (Vez == 3) {
 		    	 mSoundPool.play(random(mRedList[3]), streamVolume, streamVolume, 1, 0, 1f);
 		    	 }
 		}
 		
 		if (color == Color.BLUE){
 		     int streamVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-		     if (SoundManager.Vez == 0) {
+		     if (Vez == 0) {
 		    	 mSoundPool.play(random(mBlueList[0]), streamVolume, streamVolume, 1, 0, 1f); 
 		     }
-		     if (SoundManager.Vez == 1) {
+		     if (Vez == 1) {
 		    	 mSoundPool.play(random(mBlueList[1]), streamVolume, streamVolume, 1, 0, 1f); 
 		     }
-		     if (SoundManager.Vez == 2) {
+		     if (Vez == 2) {
 		    	 mSoundPool.play(random(mBlueList[2]), streamVolume, streamVolume, 1, 0, 1f); 
 		     }
-		     if (SoundManager.Vez == 3) {
-		    	 mSoundPool.play(mrandom(mBlueList[3]), streamVolume, streamVolume, 1, 0, 1f); 
+		     if (Vez == 3) {
+		    	 mSoundPool.play(random(mBlueList[3]), streamVolume, streamVolume, 1, 0, 1f); 
 		     }
 		}
 		
 		if (color == Color.GREEN){
 		     int streamVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC); 
-		     if (SoundManager.Vez == 0) {
+		     if (Vez == 0) {
 		    	 mSoundPool.play(random(mGreenList[0]), streamVolume, streamVolume, 1, 0, 1f); 
-		    	 SoundManager.Vez = 1;
+		    	 Vez = 1;
 		     }
-		     if (SoundManager.Vez == 1) {
+		     if (Vez == 1) {
 		    	 mSoundPool.play(random(mGreenList[1]), streamVolume, streamVolume, 1, 0, 1f); 
-		    	 SoundManager.Vez = 2;
+		    	 Vez = 2;
 		     }
-		     if (SoundManager.Vez == 2) {
+		     if (Vez == 2) {
 		    	 mSoundPool.play(random(mGreenList[2]), streamVolume, streamVolume, 1, 0, 1f); 
-		    	 SoundManager.Vez = 3;
+		    	 Vez = 3;
 		     }
-		     if (SoundManager.Vez == 3) {
+		     if (Vez == 3) {
 		    	 mSoundPool.play(random(mGreenList[3]), streamVolume, streamVolume, 1, 0, 1f); 
-		    	 SoundManager.Vez = 0;
+		    	 Vez = 0;
 		     }
 		}
 
