@@ -1,0 +1,4 @@
+
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:id="@+id/item_connect" android:title="Add Sphero"></item>
+    </menu>

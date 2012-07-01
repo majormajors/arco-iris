@@ -1,5 +1,7 @@
 package com.mattmayers.arcoiris;
 
+import java.util.Random;
+
 import orbotix.robot.app.StartupActivity;
 import orbotix.robot.base.DeviceAsyncData;
 import orbotix.robot.base.DeviceMessenger;
@@ -9,17 +11,23 @@ import orbotix.robot.base.RobotProvider;
 import orbotix.robot.sensor.DeviceSensorsData;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-    Button connectButton;
-    Robot robot;
+    MenuItem connect;
+    ListView robotList;
     
     private static int CONNECT_ROBOT = 0;
+    private static final Random random = new Random();
     
     private final DeviceMessenger.AsyncDataListener mDataListener = new DeviceMessenger.AsyncDataListener() {
         @Override
@@ -40,24 +48,39 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        connectButton = (Button) findViewById(R.id.button_connect);
-        connectButton.setOnClickListener(new OnClickListener(){
-
+        robotList = (ListView) findViewById(R.id.robot_list);
+        
+        connect = (MenuItem) findViewById(R.id.item_connect);
+        connect.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() { 
             @Override
-            public void onClick(View v) {
+            public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(MainActivity.this, StartupActivity.class);
                 startActivityForResult(intent, CONNECT_ROBOT);
+                return true;
             }
-            
         });
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
     }
     
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         super.onActivityResult(requestCode, resultCode, intent);
         if(requestCode == CONNECT_ROBOT && resultCode == RESULT_OK){
             String robotId = intent.getStringExtra(StartupActivity.EXTRA_ROBOT_ID);
-            robot = RobotProvider.getDefaultProvider().findRobot(robotId);
-            Toast.makeText(this, robot.getName(), Toast.LENGTH_LONG).show();
+            Robot robot = RobotProvider.getDefaultProvider().findRobot(robotId);
         }
+    }
+    
+    public static int randomColor() {
+        int color = Color.rgb(
+                random.nextInt(255),
+                random.nextInt(255),
+                random.nextInt(255));
+        return color;
     }
 }
